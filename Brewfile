@@ -71,7 +71,7 @@ brew "ansible"
 # Cloud tools
 brew "awscli"
 brew "azure-cli"
-brew "gcloud"
+brew "google-cloud-sdk"
 
 # API and network tools
 brew "httpie"           # Better curl for APIs
@@ -139,8 +139,6 @@ cask "cyberduck"        # FTP/SFTP client
 cask "imageoptim"       # Image optimization
 
 # Design and media
-cask "figma"
-cask "sketch"
 cask "vlc"              # Media player
 
 # Fonts for development (Nerd Fonts with icons)
