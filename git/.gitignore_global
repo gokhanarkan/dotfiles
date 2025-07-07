@@ -376,3 +376,6 @@ NOTES.md== Audio files =====
 .parcel-cache/
 .eslintcache
 .stylelintcache
+
+# ===== AI Stuff =====
+.claude
