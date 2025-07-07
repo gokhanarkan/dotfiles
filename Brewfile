@@ -71,7 +71,6 @@ brew "ansible"
 # Cloud tools
 brew "awscli"
 brew "azure-cli"
-brew "google-cloud-sdk"
 
 # API and network tools
 brew "httpie"           # Better curl for APIs
@@ -126,6 +125,7 @@ cask "docker"           # Docker Desktop
 cask "postman"          # API testing
 cask "tableplus"        # Universal database tool
 cask "redis-insight"    # Redis GUI
+cask "google-cloud-sdk" # Google Cloud SDK
 
 # Productivity tools
 cask "alfred"           # Powerful Spotlight replacement
