@@ -2,8 +2,9 @@
 
 # Fish-First Dotfiles Setup Script
 # One-click installation for modern macOS development environment
-# Author: Your Name
-# Usage: curl -fsSL https://raw.githubusercontent.com/yourusername/dotfiles/main/install.sh | bash
+# Author: Gökhan Arkan
+# GitHub: https://github.com/gokhanarkan/dotfiles
+# Usage: curl -fsSL https://raw.githubusercontent.com/gokhanarkan/dotfiles/main/install.sh | bash
 
 set -e
 
@@ -47,13 +48,14 @@ fi
 
 echo -e "${PURPLE}"
 cat << "EOF"
- ______ _     _       _______ _          _
-|  ____(_)   | |     |  _____(_)        | |
-| |__   _ ___| |__   | |__    _ _ __ ___| |_
+ ______ _     _       _______ _          _   
+|  ____(_)   | |     |  _____(_)        | |  
+| |__   _ ___| |__   | |__    _ _ __ ___| |_ 
 |  __| | / __| '_ \  |  __|  | | '__/ __| __|
-| |    | \__ \ | | | | |     | | |  \__ \ |_
+| |    | \__ \ | | | | |     | | |  \__ \ |_ 
 |_|    |_|___/_| |_| |_|     |_|_|  |___/\__|
 
+🐟 Gökhan Arkan's Fish-First Development Environment
 EOF
 echo -e "${NC}"
 
@@ -63,6 +65,7 @@ echo "  • Fish shell with modern plugins"
 echo "  • Starship prompt (Rust-powered speed)"
 echo "  • Complete development toolchain (Go, Node.js, Python, etc.)"
 echo "  • Ghostty terminal optimization"
+echo "  • golangci-lint v2 configuration"
 echo "  • One-click package management"
 echo
 
@@ -80,7 +83,7 @@ fi
 if ! command -v brew &> /dev/null; then
     print_step "🍺 Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
+    
     # Add Homebrew to PATH for Apple Silicon Macs
     if [[ -f "/opt/homebrew/bin/brew" ]]; then
         echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
@@ -93,7 +96,7 @@ fi
 # Clone or update dotfiles repository
 if [ ! -d "$DOTFILES_DIR" ]; then
     print_step "📥 Cloning dotfiles repository..."
-    git clone https://github.com/yourusername/dotfiles.git "$DOTFILES_DIR"
+    git clone https://github.com/gokhanarkan/dotfiles.git "$DOTFILES_DIR"
 else
     print_step "🔄 Updating dotfiles repository..."
     cd "$DOTFILES_DIR" && git pull origin main
@@ -132,12 +135,12 @@ print_step "🔗 Creating symlinks for configuration files..."
 backup_and_link() {
     local source="$DOTFILES_DIR/$1"
     local target="$HOME/$2"
-
+    
     if [ -f "$target" ] || [ -L "$target" ]; then
         print_warning "Backing up existing $target to $target.backup"
         mv "$target" "$target.backup"
     fi
-
+    
     if [ -f "$source" ]; then
         ln -sf "$source" "$target"
         print_success "Linked $1 -> $2"
@@ -160,6 +163,9 @@ backup_and_link "git/.gitignore_global" ".gitignore_global"
 
 # Node configuration
 backup_and_link "node/.npmrc" ".npmrc"
+
+# Go configuration (golangci-lint)
+backup_and_link ".golangci.yml" ".golangci.yml"
 
 # Ghostty configuration
 if [ -d "$DOTFILES_DIR/ghostty" ]; then
@@ -199,7 +205,7 @@ if command -v fish &> /dev/null; then
         nvm install lts
         nvm use lts
         set -U nvm_default_version lts
-
+        
         # Install global packages
         npm install -g pnpm typescript @types/node prettier eslint
     " 2>/dev/null || print_warning "Node.js setup encountered issues, please run 'nvm install lts' manually in Fish"
@@ -215,7 +221,7 @@ if command -v pyenv &> /dev/null; then
         pyenv install "$LATEST_PYTHON" || print_warning "Python installation failed, you can install it manually later"
     fi
     pyenv global "$LATEST_PYTHON" 2>/dev/null || true
-
+    
     # Install common packages
     pip3 install --upgrade pip poetry black isort flake8 mypy 2>/dev/null || print_warning "Some Python packages failed to install"
     print_success "Python environment configured"
@@ -227,18 +233,14 @@ if command -v go &> /dev/null; then
     go install golang.org/x/tools/gopls@latest
     go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
     go install github.com/air-verse/air@latest
-    print_success "Go environment configured"
+    print_success "Go environment configured with golangci-lint v2"
 fi
 
-# Configure Git
+# Configure Git with Gökhan's information
 print_step "⚙️ Configuring Git..."
-echo "Please enter your Git configuration details:"
-read -p "Full Name: " git_name
-read -p "Email: " git_email
-
-git config --global user.name "$git_name"
-git config --global user.email "$git_email"
-print_success "Git configuration completed"
+git config --global user.name "Gökhan Arkan"
+git config --global user.email "gokhanarkan@gmail.com"
+print_success "Git configured for Gökhan Arkan <gokhanarkan@gmail.com>"
 
 # Set up SSH key (optional)
 if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
@@ -246,12 +248,12 @@ if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
     read -p "Generate SSH key for GitHub? (y/n): " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        ssh-keygen -t ed25519 -C "$git_email" -f "$HOME/.ssh/id_ed25519" -N ""
-
+        ssh-keygen -t ed25519 -C "gokhanarkan@gmail.com" -f "$HOME/.ssh/id_ed25519" -N ""
+        
         # Start ssh-agent and add key
         eval "$(ssh-agent -s)"
         ssh-add "$HOME/.ssh/id_ed25519"
-
+        
         print_success "SSH key generated at ~/.ssh/id_ed25519.pub"
         print_warning "Don't forget to add your SSH key to GitHub:"
         print_warning "https://github.com/settings/keys"
@@ -286,15 +288,15 @@ fish -c "
     set -Ux EDITOR code
     set -Ux VISUAL code
     set -Ux BROWSER open
-
+    
     # Go paths
     set -Ux GOPATH \$HOME/go
     set -Ux GOBIN \$GOPATH/bin
-
+    
     # Add paths
     fish_add_path \$GOBIN
     fish_add_path \$HOME/.local/bin
-
+    
     # Docker settings
     set -Ux DOCKER_BUILDKIT 1
     set -Ux COMPOSE_DOCKER_CLI_BUILD 1
@@ -308,17 +310,18 @@ echo "Fonts are being installed via Homebrew (this was included in the Brewfile)
 
 # Final success message
 echo
-echo -e "${GREEN}🎉 Fish-first dotfiles installation completed successfully!${NC}"
+echo -e "${GREEN}🎉 Gökhan's Fish-first dotfiles installation completed successfully!${NC}"
 echo
 echo -e "${CYAN}🚀 Your blazing-fast development environment is ready!${NC}"
 echo
 echo -e "${YELLOW}What's been installed:${NC}"
 echo "  🐟 Fish shell as default with modern plugins"
-echo "  🚀 Starship prompt (Rust-powered)"
+echo "  🚀 Starship prompt (Rust-powered)"  
 echo "  🎣 Fisher plugin manager with essential plugins"
 echo "  📦 Complete development toolchain (Go, Node.js, Python)"
 echo "  🔧 Optimized configurations for all tools"
 echo "  👻 Ghostty terminal configuration"
+echo "  🔍 golangci-lint v2 configuration for Go projects"
 echo
 echo -e "${CYAN}Next steps:${NC}"
 echo "1. ${YELLOW}Restart your terminal${NC} (new Fish session will load automatically)"
@@ -326,6 +329,7 @@ echo "2. Run ${YELLOW}'fish_config'${NC} to open the web-based configuration UI"
 echo "3. Try some abbreviations: ${YELLOW}'gs'${NC} (git status), ${YELLOW}'ll'${NC} (exa list)"
 echo "4. Add your SSH key to GitHub if you generated one"
 echo "5. Test your development tools: ${YELLOW}'go version'${NC}, ${YELLOW}'node --version'${NC}, ${YELLOW}'python3 --version'${NC}"
+echo "6. Test Go linting: ${YELLOW}'golangci-lint --version'${NC}"
 echo
 echo -e "${PURPLE}Fish advantages you now have:${NC}"
 echo "  ⚡ 4x faster shell startup than Zsh"
@@ -339,3 +343,4 @@ echo -e "${GREEN}Welcome to the Fish shell! 🐟${NC}"
 echo -e "${CYAN}Happy coding! 🚀${NC}"
 echo
 echo -e "${YELLOW}Tip: Run 'update-all' anytime to update all your development tools!${NC}"
+echo -e "${BLUE}Repository: https://github.com/gokhanarkan/dotfiles${NC}"
