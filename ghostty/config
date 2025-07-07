@@ -26,7 +26,7 @@ cursor-opacity = 1.0
 scrollback-limit = 10000
 
 # Bell
-bell = "disabled"
+# bell = "disabled"
 
 # Mouse
 mouse-hide-while-typing = true
