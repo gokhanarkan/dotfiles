@@ -1,0 +1,311 @@
+# Starship Configuration
+# ~/.config/starship.toml
+# Fast, beautiful, cross-shell prompt
+# Author: Gökhan Arkan (@gokhanarkan)
+
+# Global settings
+format = """
+[](color_orange)\
+$os\
+$username\
+[](bg:color_yellow fg:color_orange)\
+$directory\
+[](fg:color_yellow bg:color_aqua)\
+$git_branch\
+$git_status\
+[](fg:color_aqua bg:color_blue)\
+$nodejs\
+$golang\
+$python\
+$rust\
+[](fg:color_blue bg:color_bg3)\
+$docker_context\
+$kubernetes\
+[](fg:color_bg3)\
+$line_break$character"""
+
+# Define colors (Gruvbox-inspired)
+palette = 'gruvbox_dark'
+
+[palettes.gruvbox_dark]
+color_fg0 = '#fbf1c7'
+color_bg1 = '#3c3836'
+color_bg3 = '#665c54'
+color_blue = '#458588'
+color_aqua = '#689d6a'
+color_green = '#98971a'
+color_orange = '#d65d0e'
+color_purple = '#b16286'
+color_red = '#cc241d'
+color_yellow = '#d79921'
+
+# OS icon
+[os]
+disabled = false
+style = "bg:color_orange fg:color_fg0"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# Username
+[username]
+show_always = true
+style_user = "bg:color_orange fg:color_fg0"
+style_root = "bg:color_orange fg:color_fg0"
+format = '[ $user ]($style)'
+
+# Directory
+[directory]
+style = "fg:color_fg0 bg:color_yellow"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+"Code" = "󰲋 "
+"Projects" = "󰲋 "
+
+# Git branch
+[git_branch]
+symbol = ""
+style = "bg:color_aqua"
+format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+
+# Git status
+[git_status]
+style = "bg:color_aqua"
+format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+
+# Node.js
+[nodejs]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+# Go
+[golang]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+# Python
+[python]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+# Rust
+[rust]
+symbol = ""
+style = "bg:color_blue"
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+
+# Docker
+[docker_context]
+symbol = ""
+style = "bg:color_bg3"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+
+# Kubernetes
+[kubernetes]
+symbol = "󱃾"
+style = "bg:color_bg3"
+format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
+disabled = false
+
+# Time
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_bg1"
+format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
+
+# Line break
+[line_break]
+disabled = false
+
+# Character prompt
+[character]
+disabled = false
+success_symbol = '[](bold fg:color_green)'
+error_symbol = '[](bold fg:color_red)'
+vimcmd_symbol = '[](bold fg:color_green)'
+vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
+vimcmd_replace_symbol = '[](bold fg:color_purple)'
+vimcmd_visual_symbol = '[](bold fg:color_yellow)'
+
+# Command duration
+[cmd_duration]
+min_time = 500
+style = "fg:color_fg0"
+format = "[$duration]($style)"
+
+# Jobs indicator
+[jobs]
+symbol = ""
+style = "bold blue"
+number_threshold = 1
+format = "[$symbol]($style)"
+
+# Battery
+[battery]
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󰂃"
+unknown_symbol = "󰁽"
+empty_symbol = "󰂎"
+
+[[battery.display]]
+threshold = 10
+style = "bold red"
+
+[[battery.display]]
+threshold = 30
+style = "bold yellow"
+
+# Memory usage
+[memory_usage]
+disabled = false
+threshold = -1
+symbol = "󰍛"
+style = "bold dimmed green"
+format = "[$symbol${ram}]($style)"
+
+# Package version
+[package]
+symbol = "󰏗"
+style = "208"
+format = "[$symbol$version]($style)"
+
+# Programming language versions (additional)
+[c]
+symbol = " "
+style = "149 bold"
+format = "[$symbol($version(-$name))]($style)"
+
+[cmake]
+symbol = "△"
+style = "blue bold"
+format = "[$symbol($version)]($style)"
+
+[java]
+symbol = " "
+style = "red dimmed"
+format = "[$symbol($version)]($style)"
+
+[kotlin]
+symbol = "🅺"
+style = "blue bold"
+format = "[$symbol($version)]($style)"
+
+[lua]
+symbol = ""
+style = "blue bold"
+format = "[$symbol($version)]($style)"
+
+[php]
+symbol = ""
+style = "147 bold"
+format = "[$symbol($version)]($style)"
+
+[ruby]
+symbol = ""
+style = "red bold"
+format = "[$symbol($version)]($style)"
+
+# Cloud providers
+[aws]
+symbol = "󰸏"
+style = "bold orange"
+format = '[$symbol($profile)(\($region\))(\[$duration\])]($style)'
+
+[gcloud]
+symbol = "󱇶"
+style = "bold blue"
+format = '[$symbol($account(@$domain)(\($region\)))]($style)'
+
+[azure]
+symbol = "󰠅"
+style = "bold blue"
+format = "[$symbol($subscription)]($style)"
+
+# Development tools
+[terraform]
+symbol = "󱁢"
+style = "bold purple"
+format = "[$symbol$workspace]($style)"
+
+[helm]
+symbol = "⎈"
+style = "bold white"
+format = "[$symbol($version)]($style)"
+
+# Status
+[status]
+symbol = "🔴"
+success_symbol = "🟢"
+not_executable_symbol = "🚫"
+not_found_symbol = "🔍"
+sigint_symbol = "🧱"
+signal_symbol = "⚡"
+style = "bg:red"
+map_symbol = true
+disabled = false
+
+# Shell indicator
+[shell]
+fish_indicator = "󰈺"
+powershell_indicator = "_"
+unknown_indicator = "mystery shell"
+style = "cyan bold"
+disabled = false
+
+# Sudo
+[sudo]
+symbol = "🧙"
+style = "bold green"
+format = "[as $symbol]($style)"
+disabled = false
+
+# Performance settings
+command_timeout = 1000
+scan_timeout = 30
+
+# Custom modules
+[custom.git_server]
+command = "echo $GIT_SERVER"
+when = "test -n \"$GIT_SERVER\""
+symbol = "🌐"
+style = "bold yellow"
+format = "[$symbol$output]($style)"
+
+[custom.gokhan]
+description = "Display author info"
+command = "echo 'Gökhan'"
+when = "test -f ~/.config/starship.toml"
+symbol = "👤"
+style = "bold cyan"
+format = "[$symbol $output]($style)"

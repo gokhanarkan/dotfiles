@@ -1,0 +1,378 @@
+# Global gitignore file
+# ~/.gitignore_global
+# Applies to all repositories on this machine
+# Author: Gökhan Arkan (@gokhanarkan)
+
+# ===== Operating System =====
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.AppleDouble
+.LSOverride
+Icon
+
+# macOS Finder
+.fseventsd
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===== IDEs and Editors =====
+
+# JetBrains IDEs (GoLand, IntelliJ, WebStorm, etc.)
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# Cursor
+.cursor/
+
+# Zed
+.zed/
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+.vim/
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Atom
+.atom/
+
+# ===== Languages and Frameworks =====
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Go
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+vendor/
+Godeps/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytype/
+
+# Ruby
+*.gem
+*.rbc
+/.config
+/coverage/
+/InstalledFiles
+/pkg/
+/spec/reports/
+/spec/examples.txt
+/test/tmp/
+/test/version_tmp/
+/tmp/
+.bundle/
+vendor/bundle
+lib/bundler/man/
+.rvmrc
+.rbenv-version
+.ruby-version
+.ruby-gemset
+
+# Java
+*.class
+*.log
+*.ctxt
+.mtj.tmp/
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+# C/C++
+*.o
+*.ko
+*.obj
+*.elf
+*.ilk
+*.map
+*.exp
+
+# Rust
+target/
+Cargo.lock
+
+# Swift
+*.xcodeproj/
+*.xcworkspace/
+
+# ===== Databases =====
+*.sqlite
+*.sqlite3
+*.db
+
+# ===== Logs =====
+logs/
+*.log
+
+# ===== Temporary files =====
+tmp/
+temp/
+.tmp/
+.temp/
+
+# ===== Environment variables =====
+.env
+.env.*
+!.env.example
+!.env.template
+
+# ===== Package managers =====
+# npm
+package-lock.json  # Only if using pnpm primarily
+.npmrc.local
+
+# pnpm
+.pnpm-debug.log*
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+# ===== Build outputs =====
+build/
+dist/
+out/
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/
+
+# ===== Testing =====
+coverage/
+.nyc_output/
+.coverage
+.pytest_cache/
+.jest/
+
+# ===== Documentation =====
+docs/_build/
+
+# ===== Containers =====
+.dockerignore
+docker-compose.override.yml
+
+# ===== Cloud and deployment =====
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# ===== Monitoring and profiling =====
+*.pprof
+
+# ===== Security =====
+*.pem
+*.key
+*.crt
+.secrets/
+secrets/
+
+# ===== Local configuration =====
+.local/
+local.properties
+local.json
+local.yaml
+local.yml
+
+# ===== Backup files =====
+*.bak
+*.backup
+*.old
+*.orig
+
+# ===== Archives =====
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# ===== Font files =====
+*.otf
+*.ttf
+*.woff
+*.woff2
+*.eot
+
+# ===== Image files (if large/generated) =====
+# Uncomment if you don't want to track large images
+# *.jpg
+# *.jpeg
+# *.png
+# *.gif
+# *.bmp
+# *.tiff
+# *.ico
+
+# ===== Video files =====
+*.mp4
+*.avi
+*.mov
+*.wmv
+*.flv
+
+# ===== Audio files =====
+*.mp3
+*.wav
+*.flac
+
+# ===== Project-specific =====
+.project
+.settings/
+.classpath
+.factorypath
+.metadata/
+.recommenders/
+
+# ===== Misc =====
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# ===== Personal Notes =====
+# Gökhan's personal ignore patterns
+notes/
+TODO.md
+NOTES.md== Audio files =====
+*.mp3
+*.wav
+*.flac
+
+# ===== Project-specific =====
+.project
+.settings/
+.classpath
+.factorypath
+.metadata/
+.recommenders/
+
+# ===== Misc =====
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache

@@ -1,0 +1,289 @@
+# Git Configuration
+# ~/.gitconfig
+# Essential aliases and settings for productivity
+# Author: Gökhan Arkan (@gokhanarkan)
+
+[user]
+    name = Gökhan Arkan
+    email = gokhanarkan@gmail.com
+
+[core]
+    editor = code --wait
+    autocrlf = input
+    trustctime = false
+    preloadindex = true
+    excludesfile = ~/.gitignore_global
+    pager = diff-so-fancy | less --tabs=4 -RFX
+    quotepath = false
+
+[init]
+    defaultBranch = main
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    followTags = true
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+    prunetags = true
+
+[rebase]
+    autoStash = true
+    autoSquash = true
+
+[merge]
+    tool = vscode
+    conflictstyle = diff3
+
+[mergetool "vscode"]
+    cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[diff]
+    tool = vscode
+    colorMoved = zebra
+    algorithm = patience
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[color]
+    ui = auto
+    branch = auto
+    diff = auto
+    status = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+# ===== ALIASES =====
+
+[alias]
+    # Basic shortcuts
+    a = add
+    aa = add .
+    ap = add -p
+    b = branch
+    ba = branch -a
+    bd = branch -d
+    bD = branch -D
+    c = commit
+    ca = commit -a
+    cm = commit -m
+    cam = commit -am
+    co = checkout
+    cob = checkout -b
+    cp = cherry-pick
+    d = diff
+    dc = diff --cached
+    f = fetch
+    fo = fetch origin
+    m = merge
+    o = remote -v
+    p = push
+    pl = pull
+    r = reset
+    rh = reset --hard
+    rs = reset --soft
+    s = status
+    sb = status -sb
+    st = stash
+    stp = stash pop
+    sta = stash apply
+    std = stash drop
+
+    # Advanced aliases
+    unstage = reset HEAD --
+    last = log -1 HEAD
+    visual = !gitk
+
+    # Amend commits
+    amend = commit --amend
+    amendn = commit --amend --no-edit
+
+    # Rebase shortcuts
+    rb = rebase
+    rbi = rebase -i
+    rbc = rebase --continue
+    rba = rebase --abort
+    rbs = rebase --skip
+
+    # Log aliases
+    l = log --oneline
+    lg = log --oneline --graph --decorate
+    lga = log --oneline --graph --decorate --all
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+    # Detailed log
+    ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+    ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+
+    # History and blame
+    hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short
+    blame-line = "!f() { git blame $1 | sed -n ${2}p; }; f"
+
+    # Working with branches
+    branches = branch -a
+    remotes = remote -v
+    tags = tag -l
+
+    # Clean up
+    bclean = "!f() { git branch --merged ${1-main} | grep -v \" ${1-main}$\" | xargs -r git branch -d; }; f"
+    bdone = "!f() { git checkout ${1-main} && git pull && git bclean ${1-main}; }; f"
+
+    # Workflow shortcuts
+    up = !git remote update -p; git merge --ff-only @{u}
+    save = !git add -A && git commit -m 'SAVEPOINT'
+    wip = !git add -u && git commit -m "WIP"
+    undo = reset HEAD~1 --mixed
+    reseth = reset --hard
+
+    # Find commits and files
+    find = "!git ls-files | xargs grep -l"
+    grep = grep -Ii
+    fc = "!f() { git log --pretty=format:'%C(yellow)%h  %C(blue)%ad  %C(reset)%s%C(green)  [%cn] %C(red)%d' --decorate --date=short -S$1; }; f"
+    fm = "!f() { git log --pretty=format:'%C(yellow)%h  %C(blue)%ad  %C(reset)%s%C(green)  [%cn] %C(red)%d' --decorate --date=short --grep=$1; }; f"
+
+    # Stash operations
+    sl = stash list
+    ss = stash save
+    sp = stash pop
+    sa = stash apply
+    sd = stash drop
+    sc = stash clear
+
+    # Show content
+    show-graph = log --graph --abbrev-commit --pretty=oneline
+    show-files = show --pretty="" --name-only
+
+    # Diff shortcuts
+    dt = difftool
+    mt = mergetool
+
+    # GitHub/GitLab integration
+    browse = "!hub browse"
+    compare = "!hub compare"
+    pr = "!hub pull-request"
+
+    # Commit message helpers
+    feat = "!f() { git commit -m \"feat: $1\"; }; f"
+    fix = "!f() { git commit -m \"fix: $1\"; }; f"
+    docs = "!f() { git commit -m \"docs: $1\"; }; f"
+    style = "!f() { git commit -m \"style: $1\"; }; f"
+    refactor = "!f() { git commit -m \"refactor: $1\"; }; f"
+    test = "!f() { git commit -m \"test: $1\"; }; f"
+    chore = "!f() { git commit -m \"chore: $1\"; }; f"
+
+    # Get current branch name
+    current-branch = symbolic-ref --short HEAD
+
+    # Push current branch
+    pushcb = "!git push origin $(git current-branch)"
+
+    # Pull current branch
+    pullcb = "!git pull origin $(git current-branch)"
+
+    # Create and switch to new branch with push
+    nb = "!f() { git checkout -b $1 && git push -u origin $1; }; f"
+
+    # Delete branch locally and remotely
+    nuke = "!f() { git branch -D $1 && git push origin :$1; }; f"
+
+    # Show contributors
+    contributors = shortlog --summary --numbered
+
+    # Show word diff
+    wdiff = diff --word-diff
+
+    # Show changes in a commit
+    show-commit = "!f() { git show --pretty='format:' --name-only $1; }; f"
+
+    # Undo last commit but keep changes
+    uncommit = reset --soft HEAD^
+
+    # Hard reset to last commit
+    abort = reset --hard HEAD
+
+    # Show ignored files
+    ignored = ls-files --others --ignored --exclude-standard
+
+    # Archive branch
+    archive = "!f() { git tag archive/$1 $1 && git branch -D $1; }; f"
+
+    # Restore archived branch
+    restore = "!f() { git checkout -b $1 archive/$1; }; f"
+
+[help]
+    autocorrect = 1
+
+[status]
+    showUntrackedFiles = all
+    submoduleSummary = true
+
+[transfer]
+    fsckobjects = true
+
+[fetch]
+    fsckobjects = true
+
+[receive]
+    fsckObjects = true
+
+# URL rewrites for HTTPS
+[url "https://github.com/"]
+    insteadOf = git://github.com/
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+# GitHub-specific settings
+[github]
+    user = gokhanarkan
+
+# GitLab-specific settings
+[gitlab]
+    user = gokhanarkan
+
+# Include work-specific config if it exists
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
+
+# Include personal projects config
+[includeIf "gitdir:~/personal/"]
+    path = ~/.gitconfig-personal
+
+# Gökhan's specific project paths
+[includeIf "gitdir:~/code/"]
+    path = ~/.gitconfig-personal
+
+# Maintenance settings
+[gc]
+    auto = 256
+
+[rerere]
+    enabled = true
+
+[column]
+    ui = auto
+
+[branch]
+    sort = -committerdate
