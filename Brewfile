@@ -2,11 +2,11 @@
 # Author: Gökhan Arkan (@gokhanarkan)
 # Usage: brew bundle
 
-# Taps
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-fonts"
-tap "homebrew/services"
+# Taps (minimal - most are now built-in)
+# tap "homebrew/bundle"  # No longer needed
+# tap "homebrew/cask"    # No longer needed
+# tap "homebrew/cask-fonts"  # Deprecated
+# tap "homebrew/services"    # Deprecated
 
 # Core shell and terminal
 brew "fish"              # Our main shell
@@ -23,7 +23,7 @@ brew "jq"               # JSON processor
 brew "yq"               # YAML processor
 
 # Modern replacements for classic tools
-brew "exa"              # Better ls
+brew "eza"              # Better ls (exa replacement)
 brew "bat"              # Better cat with syntax highlighting
 brew "fd"               # Better find
 brew "ripgrep"          # Better grep
@@ -49,7 +49,7 @@ brew "rbenv"
 # Node.js ecosystem
 brew "node"             # Backup Node.js installation
 brew "pnpm"             # Fast, disk space efficient package manager
-brew "yarn"             # Alternative package manager
+# brew "yarn"           # Removed: using pnpm instead
 
 # Database tools
 brew "postgresql@15"
@@ -71,7 +71,7 @@ brew "ansible"
 # Cloud tools
 brew "awscli"
 brew "azure-cli"
-brew "google-cloud-sdk"
+brew "gcloud"
 
 # API and network tools
 brew "httpie"           # Better curl for APIs
@@ -83,13 +83,11 @@ brew "telnet"
 brew "unzip"
 brew "zip"
 brew "7zip"
-brew "the_unarchiver"
 
 # Security tools
 brew "gnupg"
 brew "openssh"
 brew "openssl"
-brew "1password-cli"    # 1Password CLI
 
 # System monitoring and info
 brew "neofetch"
@@ -122,30 +120,21 @@ cask "zed"              # Fast, modern editor
 
 # Browsers for development
 cask "google-chrome"
-cask "firefox"
-cask "arc"              # Modern browser
 
 # Development utilities
 cask "docker"           # Docker Desktop
 cask "postman"          # API testing
-cask "insomnia"         # Alternative API client
 cask "tableplus"        # Universal database tool
-cask "sequel-pro"       # MySQL GUI
 cask "redis-insight"    # Redis GUI
 
 # Productivity tools
-cask "raycast"          # Powerful Spotlight replacement
-cask "rectangle"        # Window management
+cask "alfred"           # Powerful Spotlight replacement
 cask "cleanmymac"       # System maintenance
 
 # Communication
 cask "slack"
-cask "discord"
-cask "zoom"
-cask "microsoft-teams"
 
 # File management and utilities
-cask "the-unarchiver"   # Archive extraction
 cask "cyberduck"        # FTP/SFTP client
 cask "imageoptim"       # Image optimization
 
@@ -162,13 +151,9 @@ cask "font-source-code-pro"               # Adobe's open source font
 cask "font-cascadia-code"                 # Microsoft's font
 cask "font-meslo-lg-nerd-font"            # Great for terminals
 
-# Security and passwords
-cask "1password"        # Password manager
-cask "1password-cli"    # CLI version
 
 # Note-taking and documentation
 cask "notion"
-cask "obsidian"         # Knowledge management
 
 # Mac App Store apps (requires mas-cli)
 brew "mas"
@@ -177,11 +162,29 @@ brew "mas"
 # mas "Numbers", id: 409203825          # Spreadsheet software
 # mas "Pages", id: 409201541            # Word processor
 
+# AI/LLM Development Tools
+brew "ollama"            # Local LLM runtime
+brew "ffmpeg"            # Video/audio processing for AI
+brew "imagemagick"       # Image processing
+brew "pandoc"            # Document conversion
+brew "jupyterlab"        # Data science notebooks
+brew "graphviz"          # Graph visualization
+brew "mermaid-cli"       # Diagram generation
+brew "tesseract"         # OCR for text extraction
+brew "whisper-cpp"       # Local speech-to-text
+brew "python-tk"         # GUI toolkit for Python
+# Note: scipy, numpy, matplotlib are best installed via pip in virtual environments
+
+# AI/LLM Applications
+cask "lm-studio"         # Local LLM interface
+cask "chatgpt"           # Official ChatGPT app
+cask "github-copilot-for-xcode"  # GitHub Copilot for Xcode
+
 # Optional advanced tools (uncomment if needed)
-# brew "tmux"                           # Terminal multiplexer
-# brew "nvim"                           # Neovim editor
-# brew "lazygit"                        # Terminal Git UI
-# brew "bottom"                         # System monitor
-# brew "hyperfine"                      # Command-line benchmarking
-# brew "tokei"                          # Code statistics
-# brew "mdcat"                          # Markdown viewer
+brew "tmux"             # Terminal multiplexer
+# brew "nvim"             # Neovim editor
+# brew "lazygit"          # Terminal Git UI
+# brew "bottom"           # System monitor
+# brew "hyperfine"        # Command-line benchmarking
+brew "tokei"            # Code statistics
+# brew "mdcat"            # Markdown viewer

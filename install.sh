@@ -104,8 +104,38 @@ fi
 
 cd "$DOTFILES_DIR"
 
-# Install packages from Brewfile
+# Function to check if a package is already installed
+is_brew_installed() {
+    brew list --formula "$1" &> /dev/null
+}
+
+is_cask_installed() {
+    brew list --cask "$1" &> /dev/null
+}
+
+# Install packages from Brewfile with smart checking
 print_step "📦 Installing packages with Homebrew..."
+print_info "Checking existing installations first..."
+
+# Check for some key packages to avoid unnecessary installs
+if is_brew_installed "fish"; then
+    print_success "Fish shell already installed"
+else
+    print_info "Fish shell will be installed"
+fi
+
+if is_cask_installed "google-chrome"; then
+    print_success "Google Chrome already installed"
+else
+    print_info "Google Chrome will be installed"
+fi
+
+if is_cask_installed "visual-studio-code"; then
+    print_success "VS Code already installed"
+else
+    print_info "VS Code will be installed"
+fi
+
 brew bundle --file="$DOTFILES_DIR/Brewfile"
 
 # Install Fish shell if not installed
