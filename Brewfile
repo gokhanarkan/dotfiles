@@ -49,7 +49,6 @@ brew "rbenv"
 # Node.js ecosystem
 brew "node"             # Backup Node.js installation
 brew "pnpm"             # Fast, disk space efficient package manager
-# brew "yarn"           # Removed: using pnpm instead
 
 # Database tools
 brew "postgresql@15"
@@ -79,9 +78,9 @@ brew "nmap"
 brew "telnet"
 
 # File and archive tools
-brew "unzip"
-brew "zip"
-brew "7zip"
+# brew "unzip"
+# brew "zip"
+# brew "7zip"
 
 # Security tools
 brew "gnupg"
@@ -122,9 +121,9 @@ cask "google-chrome"
 
 # Development utilities
 cask "docker"           # Docker Desktop
-cask "postman"          # API testing
+# cask "postman"          # API testing
 cask "tableplus"        # Universal database tool
-cask "redis-insight"    # Redis GUI
+# cask "redis-insight"    # Redis GUI
 cask "google-cloud-sdk" # Google Cloud SDK
 
 # Productivity tools
@@ -176,11 +175,12 @@ brew "python-tk"         # GUI toolkit for Python
 # AI/LLM Applications
 cask "lm-studio"         # Local LLM interface
 cask "chatgpt"           # Official ChatGPT app
+cask "claude"            # Anthropic's Claude app
 cask "github-copilot-for-xcode"  # GitHub Copilot for Xcode
 
 # Optional advanced tools (uncomment if needed)
 brew "tmux"             # Terminal multiplexer
-# brew "nvim"             # Neovim editor
+brew "nvim"             # Neovim editor
 # brew "lazygit"          # Terminal Git UI
 # brew "bottom"           # System monitor
 # brew "hyperfine"        # Command-line benchmarking

@@ -387,9 +387,31 @@ end
 
 #### Fish not default shell
 
-```fish
-echo $SHELL               # Check current shell
-chsh -s (which fish)      # Set Fish as default
+If your terminal is still using zsh after installation:
+
+```bash
+# Check current shell
+echo $SHELL
+
+# If it's not fish, run these commands:
+echo $(which fish) | sudo tee -a /etc/shells  # Add fish to shells
+chsh -s $(which fish)                         # Set as default
+exec fish                                     # Switch immediately
+```
+
+#### exa command not found
+
+The modern replacement `eza` should be used instead of `exa`:
+
+```bash
+# Ensure eza is installed
+brew install eza
+
+# Check if your fish config uses eza (should show eza, not exa)
+grep "abbr.*ls\|abbr.*ll" ~/.config/fish/config.fish
+
+# If you see exa instead of eza, re-run the install script:
+curl -fsSL https://raw.githubusercontent.com/gokhanarkan/dotfiles/main/install.sh | bash
 ```
 
 #### Slow performance

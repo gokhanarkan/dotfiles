@@ -58,11 +58,11 @@ set -gx COMPOSE_DOCKER_CLI_BUILD 1
 # Fish abbreviations expand when you press space - much better than aliases!
 
 # System utilities
-abbr -a ll 'exa -la --git --icons'
-abbr -a la 'exa -la --git --icons'
-abbr -a ls 'exa --icons'
-abbr -a l 'exa -l --git --icons'
-abbr -a tree 'exa --tree --icons'
+abbr -a ll 'eza -la --git --icons'
+abbr -a la 'eza -la --git --icons'
+abbr -a ls 'eza --icons'
+abbr -a l 'eza -l --git --icons'
+abbr -a tree 'eza --tree --icons'
 abbr -a cat 'bat'
 abbr -a grep 'rg'
 abbr -a find 'fd'

@@ -11,7 +11,7 @@ set -e
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
+YELLOW='\033echo "3. Try some abbreviations: ${YELLOW}'gs'${NC} (git status), ${YELLOW}'ll'${NC} (eza list)"1;33m'
 BLUE='\033[0;34m'
 PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
@@ -152,6 +152,13 @@ else
     print_success "Starship prompt installed"
 fi
 
+# Ensure eza is installed (modern replacement for exa)
+if ! command -v eza &> /dev/null; then
+    print_error "eza installation failed. Please check Brewfile."
+else
+    print_success "eza installed (modern ls replacement)"
+fi
+
 # Setup Fish configuration directory
 print_step "🐟 Setting up Fish configuration..."
 mkdir -p "$HOME/.config/fish"
@@ -182,6 +189,15 @@ backup_and_link() {
 # Fish configuration
 backup_and_link "fish/config.fish" ".config/fish/config.fish"
 backup_and_link "fish/fish_plugins" ".config/fish/fish_plugins"
+
+# Ensure Fish config uses eza (not exa)
+if [ -f "$HOME/.config/fish/config.fish" ]; then
+    if grep -q "abbr.*exa" "$HOME/.config/fish/config.fish" 2>/dev/null; then
+        print_step "Updating fish abbreviations to use eza instead of exa..."
+        sed -i '' 's/abbr -a \([^ ]*\) '\''exa/abbr -a \1 '\''eza/g' "$HOME/.config/fish/config.fish"
+        print_success "Fish abbreviations updated to use eza"
+    fi
+fi
 
 # Starship configuration
 mkdir -p "$HOME/.config"
@@ -300,13 +316,17 @@ FISH_PATH=$(which fish)
 
 # Add Fish to /etc/shells if not already there
 if ! grep -q "$FISH_PATH" /etc/shells 2>/dev/null; then
+    print_info "Adding Fish to /etc/shells (requires sudo)..."
     echo "$FISH_PATH" | sudo tee -a /etc/shells
+    print_success "Fish added to /etc/shells"
 fi
 
 # Change default shell
 if [ "$SHELL" != "$FISH_PATH" ]; then
+    print_info "Changing default shell to Fish (requires password)..."
     chsh -s "$FISH_PATH"
     print_success "Default shell changed to Fish"
+    print_warning "You may need to restart your terminal or log out/in for the change to take effect"
 else
     print_success "Fish is already the default shell"
 fi
@@ -338,6 +358,42 @@ print_success "Fish configuration completed!"
 print_step "🔤 Installing programming fonts..."
 echo "Fonts are being installed via Homebrew (this was included in the Brewfile)"
 
+# Validation and final checks
+print_step "🔍 Validating installation..."
+
+# Check if Fish is properly set as default
+CURRENT_SHELL=$(echo $SHELL)
+FISH_PATH=$(which fish)
+if [ "$CURRENT_SHELL" = "$FISH_PATH" ]; then
+    print_success "Fish is set as default shell"
+else
+    print_warning "Fish may not be the default shell yet (restart terminal or run 'exec fish')"
+fi
+
+# Check if eza is available and fish config uses it
+if command -v eza &> /dev/null; then
+    print_success "eza command available"
+    if [ -f "$HOME/.config/fish/config.fish" ] && grep -q "eza" "$HOME/.config/fish/config.fish"; then
+        print_success "Fish configuration uses eza"
+    else
+        print_warning "Fish configuration may not be using eza properly"
+    fi
+else
+    print_error "eza not found - some abbreviations may not work"
+fi
+
+# Check essential tools
+ESSENTIAL_TOOLS=("fish" "starship" "eza" "bat" "fd" "ripgrep" "git")
+for tool in "${ESSENTIAL_TOOLS[@]}"; do
+    if command -v "$tool" &> /dev/null; then
+        print_success "$tool is available"
+    else
+        print_warning "$tool not found"
+    fi
+done
+
+print_success "Installation validation completed!"
+
 # Final success message
 echo
 echo -e "${GREEN}🎉 Gökhan's Fish-first dotfiles installation completed successfully!${NC}"
@@ -356,10 +412,15 @@ echo
 echo -e "${CYAN}Next steps:${NC}"
 echo "1. ${YELLOW}Restart your terminal${NC} (new Fish session will load automatically)"
 echo "2. Run ${YELLOW}'fish_config'${NC} to open the web-based configuration UI"
-echo "3. Try some abbreviations: ${YELLOW}'gs'${NC} (git status), ${YELLOW}'ll'${NC} (exa list)"
+echo "3. Try some abbreviations: ${YELLOW}'gs'${NC} (git status), ${YELLOW}'ll'${NC} (eza list)"
 echo "4. Add your SSH key to GitHub if you generated one"
 echo "5. Test your development tools: ${YELLOW}'go version'${NC}, ${YELLOW}'node --version'${NC}, ${YELLOW}'python3 --version'${NC}"
 echo "6. Test Go linting: ${YELLOW}'golangci-lint --version'${NC}"
+echo
+echo -e "${CYAN}💡 If you experience any issues:${NC}"
+echo "• Fish not default? Run: ${YELLOW}exec fish${NC} or restart terminal"
+echo "• Commands not found? Restart terminal to reload PATH"
+echo "• Need help? Check: ${YELLOW}https://github.com/gokhanarkan/dotfiles#troubleshooting${NC}"
 echo
 echo -e "${PURPLE}Fish advantages you now have:${NC}"
 echo "  ⚡ 4x faster shell startup than Zsh"
