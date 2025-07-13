@@ -38,6 +38,7 @@ curl -fsSL https://raw.githubusercontent.com/gokhanarkan/dotfiles/main/install.s
 - **Fish Shell** - Fast, user-friendly, intelligent shell
 - **Starship Prompt** - Rust-powered, beautiful, cross-shell prompt
 - **Fisher** - Minimal, fast plugin manager
+- **Ghostty Terminal** - Pre-configured with Fish as default shell
 - **Essential plugins** - Carefully curated for productivity
 
 ### 🛠 Development Stack
@@ -59,7 +60,7 @@ curl -fsSL https://raw.githubusercontent.com/gokhanarkan/dotfiles/main/install.s
 
 | Traditional | Modern Alternative | Benefits                       |
 | ----------- | ------------------ | ------------------------------ |
-| `ls`        | `exa`              | Git integration, colors, icons |
+| `ls`        | `eza`              | Git integration, colors, icons |
 | `cat`       | `bat`              | Syntax highlighting, paging    |
 | `grep`      | `ripgrep`          | Faster, smarter defaults       |
 | `find`      | `fd`               | Simpler syntax, faster         |
@@ -83,7 +84,7 @@ dotfiles/
 │   ├── .gitconfig          # Git with productivity aliases
 │   └── .gitignore_global   # Global gitignore patterns
 ├── ghostty/
-│   └── config              # Optimized terminal settings
+│   └── config              # Terminal settings (Fish shell default)
 ├── node/
 │   └── .npmrc              # NPM configuration (pnpm preferred)
 └── docs/
@@ -99,8 +100,8 @@ dotfiles/
 ```fish
 ..      # cd ..
 ...     # cd ../..
-ll      # exa -la --git --icons
-tree    # exa --tree --icons
+ll      # eza -la --git --icons
+tree    # eza --tree --icons
 ```
 
 ### Git Workflow

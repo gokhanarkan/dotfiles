@@ -217,7 +217,15 @@ backup_and_link ".golangci.yml" ".golangci.yml"
 if [ -d "$DOTFILES_DIR/ghostty" ]; then
     rm -rf "$HOME/.config/ghostty"
     ln -sf "$DOTFILES_DIR/ghostty" "$HOME/.config/ghostty"
-    print_success "Linked Ghostty configuration"
+    
+    # Ensure Ghostty config uses the correct Fish path
+    FISH_PATH=$(which fish)
+    if [ -f "$HOME/.config/ghostty/config" ] && [ -n "$FISH_PATH" ]; then
+        # Update the Fish path in Ghostty config if needed
+        sed -i '' "s|command = \"/opt/homebrew/bin/fish\"|command = \"$FISH_PATH\"|g" "$HOME/.config/ghostty/config"
+    fi
+    
+    print_success "Linked Ghostty configuration (Fish shell default)"
 fi
 
 # Install Fisher plugin manager
@@ -406,7 +414,7 @@ echo "  🚀 Starship prompt (Rust-powered)"
 echo "  🎣 Fisher plugin manager with essential plugins"
 echo "  📦 Complete development toolchain (Go, Node.js, Python)"
 echo "  🔧 Optimized configurations for all tools"
-echo "  👻 Ghostty terminal configuration"
+echo "  👻 Ghostty terminal configuration (Fish shell default)"
 echo "  🔍 golangci-lint v2 configuration for Go projects"
 echo
 echo -e "${CYAN}Next steps:${NC}"
